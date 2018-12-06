@@ -1,0 +1,93 @@
+body {
+  background-color: #f1f1f1;
+  font-size: large;
+}
+
+.logo {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.paragraph {
+  margin-left: 25%;
+  margin-right: 10%;
+  text-align: justify;
+}
+
+.table {
+  width: 65%;
+  margin-left: 25%;
+}
+
+.header {
+  overflow: hidden;
+  color: grey;
+  text-align: center;
+}
+
+.features-btn {
+  background-color: #d3d3d3;
+  color: #000000;
+  padding: 16px;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.features-btn a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.features {
+  /* display: inline-block; */
+  position: fixed;
+}
+
+.features-content {
+  text-decoration: none;
+  /* display: none; */
+}
+
+.features-content a {
+  color: #000000;
+  padding: 12px 16px;
+  display: block;
+  text-decoration: none;
+  background-color: #ffffff;
+}
+
+.features-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.features:hover .features-content {
+  display: block;
+}
+
+.nav {
+  text-align: center;
+}
+
+.resources {
+  text-align: center;
+}
+
+.resources-menu li {
+  text-align: justify;
+  width: 50%;
+  margin: auto;
+}
+
+.perf-graph {
+  text-align: center;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  color: #000000;
+  background-color: #d3d3d3;
+}

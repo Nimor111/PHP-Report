@@ -9,14 +9,7 @@ body {
 }
 
 .paragraph {
-  margin-left: 25%;
-  margin-right: 10%;
   text-align: justify;
-}
-
-.table {
-  width: 65%;
-  margin-left: 25%;
 }
 
 .header {
@@ -44,6 +37,7 @@ body {
 .features {
   /* display: inline-block; */
   position: fixed;
+  margin-top: 10px;
 }
 
 .features-content {
@@ -76,9 +70,9 @@ body {
 }
 
 .resources-menu li {
-  text-align: justify;
-  width: 50%;
-  margin: auto;
+  /* text-align: justify; */
+  /* width: 50%; */
+  /* margin: auto; */
 }
 
 .perf-graph {
@@ -90,4 +84,12 @@ body {
 .nav-pills > li.active > a:hover {
   color: #000000;
   background-color: #d3d3d3;
+}
+
+.zval {
+  font-style: italic;
+}
+
+h3 {
+  font-size: 35px;
 }

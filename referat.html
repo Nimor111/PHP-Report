@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" />
+    <title>Index</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="javascript/jquery.min.js"></script>
+    <script src="javascript/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css" type="text/css" media="screen" charset="utf-8">
+
+  </head>
+  <div class="container">
+    <div class="row">
+      <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+        <div class="col-md-3">
+          <div class="features">
+            <div class="features-content" id="myScrollspy">
+              <button class="features-btn">PHP7 Features</button>
+              <nav id="myScrollspy">
+                <ul class="nav nav-pills nav-stacked">
+                  <li class="active"><a href="#intro">Въведение</a></li>
+                  <li><a href="#speed">Бързина</a></li>
+                  <li><a href="#ast">Синтактично дърво</a></li>
+                  <li><a href="#new-ops">Нови оператори</a></li>
+                  <li><a href="#types">Типови декларации</a></li>
+                  <li><a href="#rng">RNG</a></li>
+                  <li><a href="#exceptions">Грешки</a></li>
+                  <li><a href="#anonymous-classes">Анонимни класове</a></li>
+                  <li><a href="#assertions">Очаквания</a></li>
+                  <li><a href="#resources">Ресурси</a></li>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div>
+            <p class="header">PHP 7 - The Good Stuff</p> </div>
+          <div class="logo">
+            <img src="img/php-logo.png"/>
+            <h3 id="intro">Въведение</h3>
+          </div>
+          <p class="paragraph">
+            PHP 7 е нова и чакана дълго време голяма версия на езика за програмиране PHP и представлява революция в начина, по който уеб приложенията се програмират и доставят като мобилни, бизнес и облачни такива. Версията е смятана като най-важната промяна в PHP след версия 5 на езика през 2004.<br />
+            PHP 7 използва новия <a href="https://en.wikipedia.org/wiki/Zend_Engine">Zend Engine</a> 3.0 и подобрява бързината на приложения почти два пъти в сравнение на PHP 5.6 (последната версия на PHP 5). Новата версия на езика е адаптирана към модерните изисквания за работа на уеб приложения.
+            Основните подобрения и добавки в езика са:
+            <ul class="paragraph">
+              <li>Бързина - два пъти по-бърз в сравнение с PHP 5.6</li>
+              <li>Значително намалено количество използвана памет</li>
+              <li>Абстрактно синтактично дърво</li>
+              <li>Консистентна поддръжка за 64-битови типови</li>
+              <li>Подобрена йерархия от грешки</li>
+              <li>Много фатални грешки превърнати в грешки ( Exceptions )</li>
+              <li>Безопасен генератор на случайни числа</li>
+              <li>Премахнати стари и неподдържани SAPI ( Server API )</li>
+              <li>Скаларни типови декларации за аргументи на функции и върнатите им типове</li>
+              <li>Анонимни класове</li>
+              <li>Инварианти с нулева цена ( Zero-cost assertions )</li>
+            </ul>
+          </p>
+          <div class="logo">
+            <h3 id="speed">Бързина</h3>
+          </div>
+          <p class="paragraph">Основният фокус на PHP 7 е да оптимизира структурата, която представлява променлива в PHP - Zend value (<span class="zval">zval</span>). В PHP 7 <span class="zval">zvals</span> не се алокират в heap-a и не съдържат повече брой референции. Вместо това броят референции се съдържа в по-сложната структура, към която сочи <span class="zval">zval</span> - низ, масив или обект.
+            Фактът, че прости стойности не се алокират в heap-a в PHP 7 премахва нуждата за броене на референции, което само по себе си резултира в подобрено бързодействие. Държането на броя референции в самите стойности също им позволява да бъдат споделяни независимо от <span class="zval">zval</span> структурата, коeто е още едно предимство на новата версия на езика спрямо PHP 7. </p>
+
+          <p class="paragraph">Ето една графика, която сравнява заявки към API в PHP 5 и PHP 7.
+            Това са резултати от заявки за писане и четене към API. Виждаме, че при 50/50% четещи и пишещи операции, 100% пишещи и 100% четящи операции PHP 7 е по-бърз.</p>
+          <div class="perf-graph">
+            <img src="img/speed.png"/>
+          </div>
+          <div class="logo">
+            <h3 id="ast">Синтактично дърво (AST)</h3>
+          </div>
+          <p class="paragraph">
+            Една от добавките в PHP 7 е синтактично дърво като част от процеса на интерпретиране на езика. Това помага на интерпретатора на езика да получава повече информация за кода, който сме написали и дава възможности за дефиниране на повече и по-сложни синтактични конструкции.</p>
+          <p class="paragraph">Сорс кодът на PHP 7 минава през следните фази:</p>
+          <pre>function foobar(int $a)</pre>
+          <ul class="paragraph">
+            <li>Разбиване на токени ( Tokenising ) - сорс кодът отгоре се разбива на парчета (токени), т.е. function, foobar, (, int, $a, ), {, return, 1, +, $a, ; и }. Tokeniser-a също закача за всеки токен някакви допълнителни данни (metadata), които например за foobar казват, че е идентификатор, а function e ключова дума и също така прави трансформации върху низове.</li>
+            <li>Разбор (parsing) - интерпретаторът преглежда токените един по един и съпоставя образци, които формират различни структури от езика, рекурсивно построявайки синтактично дърво. Декларация на функция например може да бъде позната по ключовата дума function, име, отваряща скоба, списък от параметри, затваряща скоба, отваряща фигурна скоба, списък от твърдения (statement) и затваряща фигурна скоба. Подобно, списък от аргументи включва опциална типова декларация, име на променлива и евентуално още подобни, разделени със запетаи. В примера от по-горе изразът 1 + $a ще е разпознат като бинарна операция с аргументи 1 и $a. Тази опция се разпознава като аргумент на return, който пък се разпознава като единственото твърдение (statement) в тялото на функцията. int $a пък се разпознава като декларация на параметър на функцията с име $a и тип int. Резултатът от този етап на интерпретацията е нещо подобно: <pre> {
+     type: 'function_decl',
+     name: 'foobar',
+     params: {
+         type: 'function_param_list',
+         children: [
+             {
+                 type: 'parameter',
+                 name: 'a',
+                 typehint: 'int'
+             }
+         ]
+     }
+     body: {
+         type: 'statement_list',
+         children: [
+             {
+                 type: 'return_statement',
+                 expression: {
+                     type: 'add',
+                     op1: {
+                         type: 'integer',
+                         value: 1
+                     },
+                     op2: {
+                         type: 'variable',
+                         name: 'a'
+                     }
+                 }
+             }
+         ]
+     }
+}
+              </pre>
+            </li>
+            <li>Компилация: Абстрактното синтактично дърво се трансформира в линеен списък от опкодове (opcodes), които виртуалната машина изпълнява. Те са много прости инструкции, които могат да се изпълняват последователно. Така се интерпретира кодът в PHP 7. </li>
+          </ul>
+          <p class="paragraph">Какво променя PHP 7? В PHP 5 синтактично дърво няма и втората и третата стъпка са обединени - PHP, от списъка с токени, веднага генерира опкодове щом разпознае някоя структура на езика. Това причинява проблеми, когато няма достатъчно информация в списъка от токени - единственото, което може да се направи тук е да се гледат предхождащите токени, за да се генерират операции. Много структури на езика, например Python-style list comprehensions от вида: <pre>[$foo * 2 foreach ($foos as $foo)]</pre> не могат да бъдат имплементирани със стария parser. Тук невъзможността идва от това, че трябва да генерираме опкодовете за foreach първо, тъй като не може да се ползва $foo преди да бъде инициализирано. С новия parser реда на анализиране и компилиране на кода не е от значение и това е възможно.</p>
+            <div class="logo">
+              <h3 id="new-ops">Нови оператори</h3>
+            </div>
+            <p class="paragraph">В PHP 7 има следните нови оператори: </p>
+            <ul class="paragraph">
+              <li>Spaceship operator или комбиниран оператор за сравнение - нотацията на новия оператор изглежда така: <=> (като опростен космически кораб, ако си го представим правилно). Spaceship операторът е бинарен - връща 0 ако аргументите му са равни, 1 ако левия е по-голям, -1 ако десния е по-голям. Нарича се също така тристранен оператор за сравнение и съществува вече в други езици като Perl и Ruby. Сравненията се извършват според стандартните правила за сравнение в PHP. Ето пример за действието му: </li><br />
+              <img src="img/spaceship.jpg" />
+              <br /><br />
+              <li>Другият оператор се нарича Null Coalescing Operator и е много полезна добавка към езика. Той се означава с ?? и е синтактична захар за честите случаи, в които се използват заедно тернарен оператор и функцията isset() за проверка дали даден ключ е наличен в асоциативен масив и съответното му достъпване.  Операторът връща първия си аргумент ако той не е NULL иначе връща втория си аргумент, който играе ролята на стойност по подразбиране за оператора. Този оператор може също така да се прилага във верига за няколко поредни достъпвания на ключове. Няколко примера за използването му: </li><br />
+              <pre>
+// Взима стойността на $_GET['user'] и връща 'nobody'
+// ако ключът не съществува.
+$username = $_GET['user'] ?? 'nobody';
+// Това е еквивалентно на:
+$username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
+
+// Операторът може да бъде прилаган верижно: този код ще върне
+// първата дефинирана стойност сред $_GET['user'], $_POST['user'] и 'nobody'.
+$username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
+              </pre>
+            </ul>
+            <div class="logo">
+              <h3 id="types">Типови декларации</h3>
+            </div>
+            <p class="paragraph">
+              Типовите декларации позволяват на функции да изискват аргументите си да имат определен тип по време на извикване на програмата. Ако дадена стойност е от неправилния тип се генерира грешка. В PHP 5 тя е фатална грешка, от която можем да се възстановим. В PHP 7 ще бъде хвърлена грешка от вид TypeError. За да се специфицира типова декларация името на типа трябва да бъде сложено преди името на аргумента. Декларацията може да приема NULL стойности ако стойността по подразбиране на аргумента е NULL. Следват валидните типове, от които може да се изисква да е даден параметър и описание на тези типове.
+
+              <table class="table">
+                <tr>
+                  <th>Тип</th>
+                  <th>Описание</th>
+                </tr>
+                <tr>
+                  <td>Име на клас/интерфейс</td>
+                  <td>Параметърът трябва да е инстанция на дадения клас или интерфейс (операторът instanceof да връща истина за него.)</td>
+                </tr>
+                <tr>
+                  <td>Self</td>
+                  <td>Параметърът трябва да е инстанция на същия клас, на който дефинираме метод. Този тип може да се използва само за клас и методи на инстанции.</td>
+                </tr>
+                <tr>
+                  <td>Array</td>
+                  <td>Параметърът трябва да е <a href="http://php.net/manual/en/language.types.array.php">масив</a>.</td>
+                </tr>
+                <tr>
+                  <td>Callable</td>
+                  <td>Параметърът трябва да <a href="http://php.net/manual/en/language.types.callable.php">може да бъде извикан</a>.</td>
+                </tr>
+                <tr>
+                  <td>Bool</td>
+                  <td>Параметърът трябва да е от <a href="http://php.net/manual/en/language.types.boolean.php">булев</a> тип.</td>
+                </tr>
+                <tr>
+                  <td>Float</td>
+                  <td>Параметърът трябва да е от тип <a href="http://php.net/manual/en/language.types.float.php">рационално число</a>.</td>
+                </tr>
+                <tr>
+                  <td>Int</td>
+                  <td>Параметърът трябва да е от тип <a href="http://php.net/manual/en/language.types.integer.php">цяло число</a>.</td>
+                </tr>
+                <tr>
+                  <td>String</td>
+                  <td>Параметърът трябва да е от тип <a href="http://php.net/manual/en/language.types.string.php">символен низ</a>.</td>
+                </tr>
+                <tr>
+                  <td>Iterable</td>
+                  <td>Параметърът трябва да е от тип iterable (да може да се итерира смислено върху него - или е масив или е инстанция на вградения клас Traversable).</td>
+                </tr>
+                <tr>
+                  <td>Object</td>
+                  <td>Параметърът трябва да е обект.</td>
+                </tr>
+              </table>
+
+              В PHP 7 типовите декларации се наричат скаларни. Те са два вида - стриктни и такива по подразбиране. Разликата между тях е, че при стриктния вид няма превръщане на char в int например, ако е подаден char тип на функция, очакваща int. Ако това се случи и стриктния режим е включен, в PHP 7 ще се хвърли грешка от тип TypeError. Следният пример илюстрира това:
+              <p><pre>
+// Coercive mode
+function sumOfInts(int ...$ints)
+{
+    return array_sum($ints);
+}
+
+var_dump(sumOfInts(2, '3', 4.1));
+
+[out]: int(9)
+              </pre></p>
+              А как да го направим стриктно? В началото на файла слагаме <p><pre>declare(strict_types=1)</pre></p>
+                Тук показахме типови декларации за аргументи за функции. Има такива и за типа, който функцията връща. Това е нещо изцяло ново за PHP 7. Подобно на типовите декларации в аргументи на функции, тези декларации определят типа на стойността, която ще бъде върната от функцията. Същите типове от таблицата по-горе важат и за върнатите стойности. Пример за това е следният:
+
+                <p><pre>
+function arraysSum(array ...$arrays): array
+{
+    return array_map(function(array $array): int {
+        return array_sum($array);
+    }, $arrays);
+}
+
+print_r(arraysSum([1,2,3], [4,5,6], [7,8,9]));</pre></p>
+                  Функцията ще върне масив, чиито елементи са сумите от елементите на подадените като аргументи масиви. Стриктното типизиране важи и за тези декларации със същите правила. В PHP 7.1 пък върнатите типове могат да се обявят за възможни да са null като се напише ? пред тях. Тоест:
+                  <p><pre>
+function get_item(): ?string {
+    if (isset($_GET['item'])) {
+        return $_GET['item'];
+    } else {
+        return null;
+    }
+}</pre></p>
+                    Тук върнатият тип може да е или низ, или нищо.<br /><br />
+
+                    <p>Забележка: Когато наследник дефинира поведение за метод на родителя си (override), типът, който методът на детето връща,трябва да отговаря на типа на метода на родителя, който той дефинира.</p>
+
+                    Върнатите типове могат да са и обекти:
+
+                    <p><pre>
+class C {}
+
+function getC(): C {
+    return new C;
+}
+
+var_dump(getC());</pre></p>
+
+            </p>
+            <div class="logo">
+              <h3 id="rng">RNG</h3>
+            </div>
+            <p class="paragraph">
+              В PHP 7 е добавена функцията random_int, която генерира криптографски сигурни псевдо-произволни числа. Тази функция е подходяща, когато резултати без отколнение ( unbiased ) са критични, например при разбъркване на карти за игра на покер. Източниците на случайно генериране използване за тази функция са различни за различни платформи и са следните:
+              <ul>
+                <li>На Windows, функцията CryptGenRandom() се използва. От PHP 7.2.0, ново <a href="https://docs.microsoft.com/en-us/windows/desktop/SecCNG/cng-portal">API</a> е въведено за тази цел.</li>
+                <li>На Linux се използва системното извикване getrandom(2).</li>
+              </ul>
+              Останалите платформи използват /dev/urandom. Ако нито една от горните възможности не съществува, се хвърля Грешка.
+              Сигнатурата на функцията е следната:
+              <pre>
+// [$min, $max] е интервалът, в който ще се генерира числото
+random_int(int $min, int $max) : int</pre>
+            </p>
+            <div class="logo">
+              <h3 id="exceptions">Грешки</h3>
+            </div>
+            <p class="paragraph">
+              PHP 7 променя начина, по който се отчитат от езика. Вместо традиционния механизъм, използван от PHP 5, повечето грешки се отчитат като се хвърлят грешки от тип Error. Подобно на обикновените грешки, тези от тип Error ще пропагират нагоре докато стигнат първия отговарящ catch. Ако няма такъв, тогава ще се извика обработка на грешки по подразбиране ( с функцията set_exception_handler() ). Ако и такъв няма, тогава грешката ще се конвертира във фатална грешка ( като тези в PHP 5 ) и ще се обработи като традиционна такава. <br />
+              Тъй като Error йерархията не наследява Exception, код, който използва catch (Exception $e) { ... } блокове за справяне с нехванати грешки няма да хваща грешки от тип Error. Или catch (Error $e) { ... } блок, или set_exception_handler() са нужни за този тип грешки.
+              Йерархията на типа Error е следната:
+              <ul>
+                <li>Throwable</li>
+                <ul>
+                  <li>Error</li>
+                  <ul>
+                    <li>ArithmeticError</li>
+                    <ul>
+                      <li>DivisionByZeroError</li>
+                    </ul>
+                    <li>AssertionError</li>
+                    <li>CompileError</li>
+                    <li>TypeError</li>
+                  </ul>
+                </ul>
+                <ul>
+                  <li>Exception</li>
+                  <ul>
+                    <li>...</li>
+                  </ul>
+                </ul>
+              </ul>
+            За справяне с грешки от тип Error и Exception едновременно може да се използва и блок catch(Throwable $e), тъй като и двата типа наследяват този, както се вижда от горната йерархия.
+            </p>
+            <div class="logo">
+              <h3 id="anonymous-classes">Анонимни Класове</h3>
+            </div>
+            <p class="paragraph">
+              Анонимните класове са добавени във версия 7 на езика и са полезни за когато са нужни обекти, които ще се ползват само веднъж на определено място в кода. Като пример може да използваме логване:
+              <pre>
+// Преди PHP 7
+class Logger {
+  public function log($msg) {
+    echo $msg;
+  }
+}
+
+$util->setLogger(new Logger());
+
+// PHP 7
+$util->setLogger(new class {
+  public function log($msg) {
+    echo $msg;
+  }
+});</pre>
+            <p class="paragraph">Анонимните класове опростяват кода като позволяват дефиницията на място на класове, които са нужни само там. Могат и да приемат аргументи в конструкторите си, да наследяват и разширяват функционалостта на други класове, да имплементират интерфейси както всеки друг клас:</p>
+            <pre>
+class ExampleClass {}
+interface ExampleInterface {}
+
+// числото 10 ще бъде подадено като аргумент на конструктора на новия клас
+var_dump(new class(10) extends ExampleClass implements ExampleInterface {
+  private $num;
+
+  public function __construct($num) {
+    $this->num = $num;
+  }
+})</pre>
+            <p class="paragraph">Ако искаме да вложим анонимен клас в друг клас, анонимният клас трябва екплицитно да наследи външния, за да има достъп до неговите protected полета. В допълнение, всеки обект, създаден от една и съща декларация на анонимен клас, са инстанции на този клас. Следният код показва това:</p>
+            <pre>
+function anonymous_class() {
+  return new class {};
+}
+
+// get_class() дава името на класа на даден обект
+if (get_class(anonymous_class) == get_class(anonymous_class)) {
+  echo 'same class';
+} else {
+  echo 'different class';
+}
+
+// Изход:
+same class</pre>
+            <strong>Забележка</strong>: Името на анонимния клас се задава от Zend Engine-a и е имплементационен детайл. Не е постоянно и не трябва да се използва в продуктивен код.
+            </p>
+            <div class="logo">
+              <h3 id="assertions">Очаквания</h3>
+            </div>
+            <p class="paragraph">
+              В PHP 7 функцията assert() е вече структура на езика, а не функция, както е било досега. С нея може да се дефинират така наречените Очаквания - това са инварианти ( assertions ), които имат ефект в тестова и локална среда и са оптимизирани да имат нулева цена ( zero cost ) в продуктивни среди.
+            </p>
+            <p class="paragraph">
+              Докато assert_options(), който преди PHP 7 се е ползвал за конфигурация на assert(), все още може да се използва, за PHP 7 код е препоръчително да се използват нови две директиви за контролиране на поведението на assert(). Те са следните:
+              <ul>
+                <li>zend.assertions - при зададена стойност 1 генерира и изпълнява код за очакването, при 0 генерира код, но при изпълнение на програмата ще бъде прескочен, при -1 не генерира код.</li>
+                <li>
+                  assert.exception - при стойност 1 хвърля грешка, когато очакването не връща истина - хвърля или обект, подаден на assert() като грешка или AssertionError ако такъв не е подаден, а при стойност 0 връща обект от тип Throwable, обаче като warning, не като грешка (както в PHP 5).
+                </li>
+              </ul>
+              <p class="paragraph">Параметрите на assert() са следните:</p>
+              <ul>
+                <li>
+                  assertion - самото очакване. В PHP 5 трябва да е или низ или булева променлива, която се тества. В PHP 7 в допълнение на това може да е израз, който връща стойност, който ще се оцени и резултатът ще бъде проверен в очакването.
+                </li>
+                <li>
+                  description - описание ( не е задължително ), което ще бъде добавено в съобщението в случай на неизпълнено очакване. ( assertion error )
+                </li>
+                <li>
+                  exception - в PHP 7, този параметър може да бъде обект от тип Throwable вместо описателен низ ( както е в PHP 5 ). Той ще бъде хвърлен като грешка ако се провали очакването и assert.exception опцията е включена.
+                </li>
+              </ul>
+              <p class="paragraph">Функцията връща булева стойност в зависимост от истинността на условието. Няколко примера за очаквания ( в PHP 7 ):</p>
+            <pre>
+// Очаквания без подадена грешка от потребителя
+assert(true == false);
+echo 'Hi!';
+
+// С zend.assertions = 0, горното ще изведе:
+Hi!
+
+// С zend.assertions = 1 и assert.exception = 0 ще изведе
+Warning: assert(): assert(true == false) failed in - on line 2
+Hi!
+
+// С zend.assertions = 1 и assert.exception = 1 ще изведе
+Fatal error: Uncaught AssertionError: assert(true == false)
+Stack trace: ...
+
+// Очаквания с подадена грешка
+class CustomError extends AssertionError {}
+
+assert(true == false, new CustomError('True is not false!'));
+echo 'Hi!';
+
+// С zend.assertions = 0, ще изведе:
+Hi!
+
+// С zend.assertions = 1 и assert.exception = 0 ще изведе
+Warning: assert(): CustomError: True is not false!
+Stack trace: ...
+Hi!
+
+// С zend.assertions = 1 и assert.expression: = 1, ще изведе
+Fatal error: Uncaught CustomError: True is not false!
+Stack trace: ...</pre>
+            </p>
+            <div class="logo">
+              <h3 id="resources">Ресурси</h3>
+            </div>
+            <p class="paragraph resources">Списък от ресурси: </p>
+            <ul class="resources-menu">
+              <li>[1] PHP documentation - PHP 7 New features
+                <a href="http://php.net/manual/en/migration70.new-features.php">
+                  Link
+                </a>
+              </li>
+              <li>[2] Treehouse blog post - 5 new features in PHP 7
+                <a href="https://blog.teamtreehouse.com/5-new-features-php-7">
+                  Link
+                </a>
+              </li>
+              <li>[3] Tutorials point - PHP 7 tutorial
+                <a href="https://www.tutorialspoint.com/php7/php7_introduction.htm">
+                  Link
+                </a>
+              </li>
+              <li>[4] PHP 7 vs. PHP 5 - A performance comparison
+                <a href="https://www.aerospike.com/blog/php7_php5/">
+                  Link
+                </a>
+              </li>
+              <li>[5] New AST in PHP 7
+                <a href="https://www.reddit.com/r/PHP/comments/3vxqu0/eli5_new_ast_in_php_7/">Link</a>
+              </li>
+              <li>[6] PHP documentation - PHP 7 random_int
+                <a href="http://php.net/manual/en/function.random-int.php">
+                  Link
+                </a>
+              </li>
+              <li>[7] PHP documentation - PHP 7 assert
+                <a href="http://php.net/manual/en/function.assert.php">
+                  Link
+                </a>
+              </li>
+              <li>[8] PHP documentation - PHP 7 anonymous classes
+                <a href="http://php.net/manual/en/language.oop5.anonymous.php">
+                  Link
+                </a>
+              </li>
+              <li>[9] PHP documentation - PHP 7 exceptions
+                <a href="http://php.net/manual/en/language.exceptions.php">
+                  Link
+                </a>
+              </li>
+
+
+            </ul>
+        </div>
+      </body>
+    </div>
+  </div>
+</html>
